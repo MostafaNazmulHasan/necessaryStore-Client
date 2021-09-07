@@ -1,0 +1,15 @@
+.productImage{
+    width: 100%;
+    height: 100px;
+}
+.productPrice{
+    color:rgb(235, 138, 11);
+}
+.productBuy{
+    width: 53px;
+    height: 40px;
+    text-align: center;
+}
+.productTitle{
+    text-align: center
+}

@@ -1,0 +1,10 @@
+.sideBar{
+    margin-top: 4%;
+    width: 50%;
+    height: 780px;
+    background-color: skyblue;
+}
+.sidebar ul li {
+    color: #fff;
+    text-align: center;
+}

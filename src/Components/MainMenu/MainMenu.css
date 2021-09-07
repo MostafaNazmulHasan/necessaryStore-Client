@@ -1,0 +1,16 @@
+#navBrand{
+    font-size: 30px;
+    color:chartreuse;
+    font-weight: 500;
+    font-family: system-ui;
+}
+#navLink{
+    color:aliceblue;
+    margin-right: 5px;
+}
+#userImage{
+    height: 3rem;
+    margin-left: 20px;
+    border-radius:50px;
+}
+
