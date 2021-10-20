@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { BsSearch } from "@react-icons/all-files/bs/BsSearch";
 import "../Home/Home.css";
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, InputGroup } from 'react-bootstrap';
 import ProductDetails from '../ProductDetails/ProductDetails';
 
 const Home = () => {
@@ -19,17 +19,11 @@ const Home = () => {
             <div className="container">
                 <div className="row">
                     <div className="col-md-4 m-auto">
-                        <div className="searchButton">
-                            <div className="searchIcon">
-                                <BsSearch />
-                            </div>
-                            <Form.Control
-                                id="searchInput"
-                                size="lg"
-                                type="text"
-                                placeholder="Search Product"
-                            />
-                            <Button id="searchBtn">Search</Button>
+                        <div className="searchForm">
+                            <form class="d-flex">
+                                <input type="text" className="form-control me-2" placeholder="Search" aria-label="Search" />
+                                <button class="btn btn-outline-success" type="submit">Search</button>
+                            </form>
                         </div>
                     </div>
                 </div>

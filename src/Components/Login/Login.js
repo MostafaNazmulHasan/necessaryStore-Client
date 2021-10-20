@@ -1,94 +1,81 @@
-import firebase from "firebase/app";
-import "firebase/auth";
-import "firebase/firestore";
-import React, { useContext } from "react";
-import { Button, Form } from "react-bootstrap";
+import Button from '@restart/ui/esm/Button';
+import React, { useContext } from 'react';
+import { initializeApp } from 'firebase/app';
+import { useHistory, useLocation } from "react-router-dom";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { FaFacebook } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
-import { Link, useHistory, useLocation } from "react-router-dom";
-import { UserContext } from "../../App";
-import firebaseConfig from "./Firebase";
-import "./Login.css"
+import { Link } from 'react-router-dom';
+import './Login.css';
+import firebaseConfig from './Firebase';
+import { UserContext } from '../../App';
 
-if (firebase.apps.length === 0) {
-  firebase.initializeApp(firebaseConfig);
+const initializeAuthentication = () => {
+  initializeApp(firebaseConfig);
 }
+initializeAuthentication();
+
 const Login = () => {
   const [loggedInUser, setLoggedInUser] = useContext(UserContext);
   let history = useHistory();
   let location = useLocation();
   let { from } = location.state || { from: { pathname: "/" } };
-  const googleSignIn = () => {
-    var provider = new firebase.auth.GoogleAuthProvider();
-    firebase
-      .auth()
-      .signInWithPopup(provider)
+  const provider = new GoogleAuthProvider();
+
+  const auth = getAuth();
+
+  const handleGoogleSignIn = () => {
+    signInWithPopup(auth, provider)
       .then((result) => {
-        const { displayName, email, photoURL } = result.user;
-        const signedInUser = { name: displayName, email, photoURL };
+        const { displayName, email } = result.user;
+        const signedInUser = { displayName, email };
         setLoggedInUser(signedInUser);
         history.replace(from);
-      })
-      .catch((error) => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        var email = error.email;
-        var credential = error.credential;
-
-        console.log(errorCode, errorMessage, email, credential);
+      }).catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
       });
-    console.log("click");
-  };
-
+  }
   return (
     <div className="loginPage">
       <div className="container">
-        <div className="row">
-          <div className="col-md-6 m-auto">
-            <Form className="form">
-              <h2>LOGIN</h2>
-              <br />
-              <Form.Group controlId="formBasicEmail">
-                <Form.Control
-                  type="email"
-                  placeholder="Email"
-                  required
-                  name="email"
-                />
-              </Form.Group>
-              <br />
-              <Form.Group controlId="formBasicPassword">
-                <Form.Control
-                  type="password"
-                  placeholder="Password"
-                  required
-                  name="password"
-                />
-              </Form.Group>
-              <br />
-              <Form.Group controlId="formBasicCheckbox" className="d-flex ">
-                <Form.Check type="checkbox" label="Remember Me" />
-                <div className="forgot">
-                  <Link to="/forgotpassword">Forgot Password</Link>
-                </div>
-              </Form.Group>
-
-              <br />
-              <Button type="submit" className="loginBtn" value="LOGIN">Login</Button>
-              <br />
-              <br />
-              <div className="dontaccount">
-                <span>Dont't have an account?</span>
-                <Link to="/registration" className="createAnAccount">Create an account</Link>
-                <br />
-                <br />
-                
-                <Button onClick={googleSignIn} variant="warning" className="googleButton">
-                  <FcGoogle></FcGoogle>  GOOGLE
-                </Button>
-              </div>
-            </Form>
+        <div className="col-md-12">
+          <form className="loginForm">
+            <h3 className="text-center">Login</h3>
             <br />
-          </div>
+            <div className="form-group">
+              <label>Email address</label>
+              <input type="email" className="form-control" placeholder="Enter email" />
+            </div>
+            <br />
+            <div className="form-group">
+              <label>Password</label>
+              <input type="password" className="form-control" placeholder="Enter password" />
+            </div>
+            <br />
+            <div className="form-group">
+              <div className="custom-control custom-checkbox">
+                <input type="checkbox" className="custom-control-input" id="customCheck1" />
+                <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
+              </div>
+            </div>
+            <br />
+            <button type="submit" className="loginBtn ">Submit</button>
+            <br />
+            <br />
+            <Link to="/login">
+              <p className="forgotPassword text-right">
+                Forgot password?
+              </p>
+            </Link>
+            <br />
+            <br />
+            <p className="text-center">Or</p>
+            <Button className="fbLogin"><FaFacebook />  Login with Facebook</Button>
+            <br />
+            <br />
+            <Button className="googleLogin" onClick={handleGoogleSignIn}><FcGoogle />  Login with Google</Button>
+          </form>
         </div>
       </div>
     </div>

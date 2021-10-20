@@ -1,20 +1,42 @@
-.form{
-    margin-top: 30%;
-    border: 1px solid black;
-    padding: 10%;
-}
-.forgot{
-    margin-left: 220px;
+
+
+.loginPage {
+    width: 40%;
+    height: 600px;
+    background-color: darkblue;
+    margin: 0 auto;
+    color: white;
+    border-radius: 15px;
+    margin-top: 5%;
 }
 .loginBtn{
     width: 100%;
+    background-color:orange;
+    height: 40px;
+
+}
+
+.loginForm {
+   padding: 5%;
+  
+}
+.forgotPassword{
+    float: right;
+    color:aqua
+}
+.fbLogin{ 
+    width: 100%;
+    background-color: skyblue;
+    color: white;
+    border: none;
     height: 40px;
     border-radius: 5px;
 }
-.googleButton{
+.googleLogin{ 
     width: 100%;
+    background-color: skyblue;
+    color: white;
+    border: none;
     height: 40px;
-}
-.createAnAccount{
-    margin-left: 20px;
+    border-radius: 5px;
 }
